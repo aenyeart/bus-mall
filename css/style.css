@@ -1,33 +1,36 @@
 /* Generic starter basestyles */
-html {
+html {}
 
-}
 * {
   box-sizing: border-box;
 }
+
 body {
   margin: 0;
   font-family: ;
 }
-h1, h2, h3, h4 {
 
-}
+h1,
+h2,
+h3,
+h4 {}
+
 p {
   margin-top: 0;
 }
-ul {
 
-}
-a {
+ul {}
 
-}
-a:visited {
-}
-a:hover, a:focus {
+a {}
+
+a:visited {}
+
+a:hover,
+a:focus {
   text-decoration: underline;
 }
-a:active {
-}
+
+a:active {}
 
 img {
   max-width: 100%;
@@ -37,42 +40,50 @@ img {
 #page-grid {
   display: grid;
   width: 90%;
-  height: 500px;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  grid-template-rows: 70px 300px 300px 70px;
-  grid-template-areas: "header header header header"
-                       "results product product product"
-                       "results text text text"
-                       "footer footer footer footer";
+  grid-template-columns: 1fr;
+  grid-template-rows: 70px 600px 70px;
+  grid-template-areas: "header"
+    "main "
+    "footer";
   margin: 0 auto;
-   align-items: start;
-} 
+}
+
+#main-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 300px 50px 250px;
+  grid-template-areas: "results product-1 product-2 product-3"
+    "results . . ."
+    "results text text text";
+}
 
 header {
   grid-area: header;
 }
+
+main {}
+
 #results {
   grid-area: results;
   background-color: aqua;
 }
-/* #product-1 {
+
+#product-1 {
   grid-area: product-1;
 }
-
 #product-2 {
   grid-area: product-2;
 }
-
 #product-3 {
   grid-area: product-3;
-} */
-
-#product-display {
-  grid-area: product;
 }
+
 #text {
   grid-area: text;
 }
+
 footer {
   grid-area: footer;
+  height: 50px;
+  background-color: red;
 }
