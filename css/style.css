@@ -31,29 +31,31 @@ a:active {
 
 img {
   max-width: 100%;
-  height: auto;
+  height: 200px;
 }
 
-.page-grid {
+#page-grid {
   display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  grid-template-rows: 70px 300px 50px 200px 70px;
+  width: 90%;
+  height: 500px;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 70px 300px 300px 70px;
   grid-template-areas: "header header header header"
-                       "results product-1 product-2 product-3"
-                       "results . . ."
+                       "results product product product"
                        "results text text text"
                        "footer footer footer footer";
   margin: 0 auto;
-  width: 90%;
-  align-items: start;
-}
+   align-items: start;
+} 
+
 header {
   grid-area: header;
 }
 #results {
   grid-area: results;
+  background-color: aqua;
 }
-#product-1 {
+/* #product-1 {
   grid-area: product-1;
 }
 
@@ -63,6 +65,10 @@ header {
 
 #product-3 {
   grid-area: product-3;
+} */
+
+#product-display {
+  grid-area: product;
 }
 #text {
   grid-area: text;
