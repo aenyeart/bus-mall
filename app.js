@@ -88,3 +88,10 @@ function compileProductOptions(namesArray, pathsArray) { // BUILDS PRODUCT OBJEC
 
 compileProductOptions(imgNames, imgPaths);
 renderProdOptions();
+
+function selectionHandler(event) {
+  console.log(event.target);
+}
+
+let displayedOptions = document.querySelectorAll(".product");
+displayedOptions.addEventListener('click', selectionHandler);
