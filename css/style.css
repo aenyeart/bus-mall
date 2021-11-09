@@ -4,7 +4,10 @@ html {}
 * {
   box-sizing: border-box;
 }
-
+.redflag {
+  background-color: rgb(133, 42, 42);
+  border: dashed red 20px;
+}
 body {
   margin: 0;
   font-family: ;
@@ -61,7 +64,9 @@ header {
   grid-area: header;
 }
 
-main {}
+main {
+
+}
 
 #results {
   grid-area: results;

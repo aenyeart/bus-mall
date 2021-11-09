@@ -59,9 +59,11 @@ function randomIndex(arrLength) {
   return randomInRange(0, arrLength);
 }
 
-function renderImage(id, imgPaths) {
+function renderImage(id, imgPaths, name) {
   let productElem = document.getElementById(id);
   productElem.setAttribute('src', imgPaths);
+  productElem.setAttribute('alt', name);
+  
 }
 
 function renderProdOptions() {   // TODO: make this function a method of Object, use this.all[] instead of imgNames
@@ -73,7 +75,7 @@ function renderProdOptions() {   // TODO: make this function a method of Object,
     debugger;
     let newOptionIndex = randomIndex(optionGenArr.length);
     let newOption = optionGenArr[newOptionIndex];
-    renderImage(id, newOption.imgPaths); // RENDERS INDIVIDUAL IMAGE
+    renderImage(id, newOption.imgPaths, newOption.name); // RENDERS INDIVIDUAL IMAGE
     optionGenArr.splice(newOptionIndex, 1); // REMOVES THIS ITEM FROM TEMP ARRAY TO PRECLUDE REPEATS when it loops back
   }
 }
@@ -90,8 +92,17 @@ compileProductOptions(imgNames, imgPaths);
 renderProdOptions();
 
 function selectionHandler(event) {
+  renderProdOptions();
   console.log(event.target);
 }
 
-let displayedOptions = document.querySelectorAll(".product");
-displayedOptions.addEventListener('click', selectionHandler);
+// These could be packaged into a function that creates the event targets
+const product1 = document.getElementById("product-1");
+const product2 = document.getElementById("product-2");
+const product3 = document.getElementById("product-3");
+
+
+// product1.setAttribute("class", "redflag");
+product1.addEventListener('click', selectionHandler);
+product2.addEventListener('click', selectionHandler);
+product3.addEventListener('click', selectionHandler);
