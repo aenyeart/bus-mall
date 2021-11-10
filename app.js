@@ -74,18 +74,20 @@ function randomProduct() {
 
 function generateOptions() {
   const cannotUse = [ 
-    Product.option1.name,
-    Product.option2.name,
-    Product.option3.name
+    Product.option1,
+    Product.option2,
+    Product.option3
   ];
 
   for (let i = 0; i < optionTotal; i++) {
+
     let newOption = "option" + (i+1);
+
     do {
       Product[`${newOption}`] = randomProduct();
-    } while (cannotUse.includes(Product[`${newOption}`].name));
+    } while (cannotUse.includes(Product[`${newOption}`]));
 
-    cannotUse.push(Product[`${newOption}`].name); // adds new option to array so it won't be duplicated
+    cannotUse.push(Product[`${newOption}`]); // adds new option to array so it won't be duplicated
   }
 }
 
