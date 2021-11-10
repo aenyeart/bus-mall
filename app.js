@@ -2,7 +2,7 @@
 
 let optionTotal = 3; // let optionTotal = parseInt(prompt("how many options?"));
 
-let imgNames = [
+let imgNamesArr = [
   "boots",
   "breakfast",
   "bubblegum",
@@ -20,7 +20,7 @@ let imgNames = [
   "water-can",
   "wine-glass"
 ];
-let imgPaths = [
+let imgPathsArr = [
   "img/boots.jpg",
   "img/breakfast.jpg",
   "img/bubblegum.jpg",
@@ -39,50 +39,46 @@ let imgPaths = [
   "img/wine-glass.jpg"
 ];
 
-function ProductOption(name, imgPaths) {
+function ProductOption(name, imgPath) {
   this.name = name;
-  this.imgPaths = imgPaths;
+  this.imgPath = imgPath;
   this.displayCounter = 0;
+  this.clickCounter = 0;
   ProductOption.all.push(this); // ADDS THIS INSTANCE TO ARRAY OF PRODUCTS
 }
 
+ProductOption.all = [];
 ProductOption.option1 = null;
 ProductOption.option2 = null; // TODO: make render a method of ProductOption to gain access to these
 ProductOption.option3 = null;
 
-ProductOption.all = [];
+ProductOption.prototype.renderImage = function (id) {
+  let productElem = document.getElementById(id);
+  productElem.src = this.imgPath;
+  productElem.alt = this.name;
 
-
-function randomInRange(min, max) {
-  let rando = Math.floor(Math.random() * (max - min) + min);
-  return rando;
+  this.displayCounter++;
 }
 
 function randomIndex(arrLength) { // generates random index from array.length
-  return randomInRange(0, arrLength);
+  return Math.floor(Math.random() * arrLength);
 }
 
-function renderImage(id, imgPaths, name) {
-  let productElem = document.getElementById(id);
-  productElem.setAttribute('src', imgPaths);
-  productElem.setAttribute('alt', name);
 
-}
-
-function renderProdOptions() { // TODO: make this function a method of Object, use this.all[] instead of imgNames
+function renderProdOptions() { // TODO: make this function a method of Object, use this.all[] instead of imgNamesArr
 
   let optionGenArr = [...ProductOption.all]; // creates copy of imgName[] values so that original remains unchanged
 
   for (let i = 1; i <= optionTotal; i++) { // generates one option per pass
-   
+
     let id = `product-${i}`;
-   
+
     let newOptionIndex = randomIndex(optionGenArr.length);
-   
+
     let newOption = optionGenArr[newOptionIndex];
-   
-    renderImage(id, newOption.imgPaths, newOption.name); // RENDERS INDIVIDUAL IMAGE
-   
+    // let thisInstance = ProductOption.all[newOptionIndex];
+    renderImage(id, newOption.imgPath, newOption.name); // RENDERS INDIVIDUAL IMAGE
+    newOption.displayCounter++;
     optionGenArr.splice(newOptionIndex, 1); // REMOVES THIS ITEM FROM TEMP ARRAY TO PRECLUDE REPEATS when it loops back
   }
 }
@@ -95,9 +91,9 @@ function instantiateProducts(namesArray, pathsArray) { // BUILDS PRODUCT instanc
   } else console.error("name and path arrays are different lengths")
 }
 
-instantiateProducts(imgNames, imgPaths);
-renderProdOptions();
 attachEventListeners();
+instantiateProducts(imgNamesArr, imgPathsArr);
+renderProdOptions();
 
 function handleClick(event) {
 
@@ -105,11 +101,15 @@ function handleClick(event) {
 
   if (event.target.classList.value === "product") {
     console.log(event.target.alt);
+    // register click count for product and totalclicks
     renderProdOptions();
-  } else console.warn("That isn't an option")
+  } else console.log("That isn't an option")
 }
 
 function attachEventListeners() {
   const clickArea = document.querySelector('main');
   clickArea.addEventListener('click', handleClick);
 }
+
+// associate id with product instance inside render function
+// use id from click event to refer to product instance clickCounter
