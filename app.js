@@ -60,7 +60,6 @@ Product.prototype.renderImage = function (id) {
   this.displayCounter++;
 }
 
-
 function renderOptions() {
   Product.option1.renderImage('option-1'); // REFACTOR?
   Product.option2.renderImage('option-2');
@@ -74,11 +73,11 @@ function randomProduct() {
 }
 
 function generateOptions() {
-  const cannotUse = [];
-  //   Product.option1.name,
-  //   Product.option2.name,
-  //   Product.option3.name
-  // ];
+  const cannotUse = [ 
+    Product.option1.name,
+    Product.option2.name,
+    Product.option3.name
+  ];
 
   for (let i = 0; i < optionTotal; i++) {
     let newOption = "option" + (i+1);
