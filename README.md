@@ -11,4 +11,5 @@ NOTE: In naming my variables and functions, I am using "product" for the backend
 - ~~Build randomizer()~~
 - ~~Test on simple array~~
 - Add click eventListener with counter variable
+- Change setAttributes to img.src and img.alt
 
