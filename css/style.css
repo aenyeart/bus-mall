@@ -55,7 +55,7 @@ img {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 300px 50px 250px;
-  grid-template-areas: "results product-1 product-2 product-3"
+  grid-template-areas: "results option-1 option-2 option-3"
     "results . . ."
     "results text text text";
 }
@@ -73,14 +73,14 @@ main {
   background-color: aqua;
 }
 
-#product-1 {
-  grid-area: product-1;
+#option-1 {
+  grid-area: option-1;
 }
-#product-2 {
-  grid-area: product-2;
+#option-2 {
+  grid-area: option-2;
 }
-#product-3 {
-  grid-area: product-3;
+#option-3 {
+  grid-area: option-3;
 }
 
 #text {
