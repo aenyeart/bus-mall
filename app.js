@@ -60,14 +60,34 @@ Product.prototype.renderImage = function (id) {
   this.displayCounter++;
 }
 
-function randomIndex(arrLength) { // generates random index from array.length
-  return Math.floor(Math.random() * arrLength);
-}
-
 
 function renderOptions() {
-  Product.option1.renderImage()  // NEXT 
-  
+  Product.option1.renderImage('option-1'); // REFACTOR?
+  Product.option2.renderImage('option-2');
+  Product.option3.renderImage('option-3');
+}
+
+function randomProduct() {
+  let arrLength = Product.all.length;
+  let index = Math.floor(Math.random() * arrLength);
+  return Product.all[index];
+}
+
+function generateOptions() {
+  const cannotUse = [];
+  //   Product.option1.name,
+  //   Product.option2.name,
+  //   Product.option3.name
+  // ];
+
+  for (let i = 0; i < optionTotal; i++) {
+    let newOption = "option" + (i+1);
+    do {
+      Product[`${newOption}`] = randomProduct();
+    } while (cannotUse.includes(Product[`${newOption}`].name));
+
+    cannotUse.push(Product[`${newOption}`].name); // adds new option to array so it won't be duplicated
+  }
 }
 
 function instantiateProducts(namesArray, pathsArray) { // BUILDS PRODUCT instances (which get pushed to array )
@@ -80,6 +100,7 @@ function instantiateProducts(namesArray, pathsArray) { // BUILDS PRODUCT instanc
 
 attachEventListeners();
 instantiateProducts(imgNamesArr, imgPathsArr);
+generateOptions();
 renderOptions();
 
 function handleClick(event) {
