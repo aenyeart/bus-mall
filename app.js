@@ -1,7 +1,7 @@
 'use strict'
 
 const optionTotal = 3; // let optionTotal = parseInt(prompt("how many options?"));
-const maxRounds = 2;
+const maxRounds = 25;
 let roundCounter = 0;
 let imgNamesArr = [
   "boots",
@@ -137,7 +137,6 @@ function handleClick(event) {
       renderOptions();
     } else {
       removeEventListeners(); // remove click handler
-      alert("It's time for results!");
       renderResultsButton();
     }
   } else console.log("That isn't an option")
@@ -152,11 +151,15 @@ function removeEventListeners() {
   clickArea.removeEventListener('click', handleClick);
 }
 function renderResults() {
-  const resultsSection = document.getElementById("results");
-  
+  const resultsList = document.getElementById("results-list");
+
   // loops through array of instances, generates DOM element with data for each product 
   for (let i=0; i < Product.all.length; i++) {
-
+    let productInstance = Product.all[i];
+    const newResultsListItem = document.createElement("li");
+    resultsList.appendChild(newResultsListItem);
+    newResultsListItem.id = productInstance.name;
+    newResultsListItem.textContent = `${productInstance.name} Clicked: ${productInstance.clickCounter} | Displayed: ${productInstance.displayCounter}`
   }
 }
 
@@ -165,7 +168,7 @@ function renderResultsButton() {
   resultsButton.textContent = "DISPLAY RESULTS";
   resultsButton.hidden = false;
   resultsButton.addEventListener("click", () => {
-    // renderResults();
+    renderResults();
     resultsButton.hidden = true;
   })
 }
@@ -177,22 +180,3 @@ renderOptions();
 
 // associate id with product instance inside render function
 // use id from click event to refer to product instance clickCounter
-
-
-
-
-
-
-// from previous renderOptions()
-// for (let i = 1; i <= optionTotal; i++) { // generates one option per pass
-
-// let id = `option-${i}`;
-
-// let newOptionIndex = randomIndex(optionGenArr.length);
-
-// lnewOption optionGenArr[newOptionIndex];
-// // let thisInstance = Product.all[newOptionIndex];
-// renderImage(inewOptionmgPatnewOptioname); // RENDERS INDIVIDUAL IMAGE
-// newOptionisplayCounter++;
-// optionGenArr.splice(newOptionIndex, 1); // REMOVES THIS ITEM FROM TEMP ARRAY TO PRECLUDE REPEATS when it loops back
-// }
