@@ -42,11 +42,11 @@ let imgPathsArray = [
 let votes = [];
 let views = [];
 
-function Product(name, imgPath) {
+function Product(name, imgPath, displayCounter = 0, clickCounter = 0) {
   this.name = name;
   this.imgPath = imgPath;
-  this.displayCounter = 0;
-  this.clickCounter = 0;
+  this.displayCounter = displayCounter;
+  this.clickCounter = clickCounter;
   Product.all.push(this); // ADDS THIS INSTANCE TO ARRAY OF PRODUCTS
 }
 
@@ -98,7 +98,9 @@ function generateOptions() {
     Product.option2,
     Product.option3
   ];
-
+  // if (localStorage.renderImage) { 
+  //   Product.prototype.renderImage = JSON.parse(localStorage.renderImage);
+  // } 
   for (let i = 0; i < optionTotal; i++) { // optionTotal defaults to 3
     let newOption = "option" + (i + 1); // concats key string 
     do {
@@ -107,10 +109,17 @@ function generateOptions() {
     cannotUse.push(Product[newOption]); // adds newOption to cannotUse[] so it won't be duplicated on this pass
   }
 }
-
+function restoreProductData() {
+  let storedData = JSON.parse(localStorage.productData);
+  // console.log('storedData: ', storedData);
+  storedData.forEach((prod) => {
+    console.log(prod.name, prod.imgPath, prod.displayCounter, prod.clickCounter);
+    new Product(prod.name, prod.imgPath, prod.displayCounter, prod.clickCounter);
+  });
+}
 function instantiateProducts(namesArray, pathsArray) { // create PRODUCT instances (which get pushed to array )
   if (localStorage.productData) {
-    Product.all = JSON.parse(localStorage.productData);
+    restoreProductData();
   } else if (namesArray.length === pathsArray.length) {
     for (let i = 0; i < pathsArray.length; i++) {
       new Product(namesArray[i], pathsArray[i]);
@@ -120,6 +129,7 @@ function instantiateProducts(namesArray, pathsArray) { // create PRODUCT instanc
 
 function storeProductData() {
   localStorage.productData = JSON.stringify(Product.all);
+  // localStorage.renderImage = JSON.stringify(Product.prototype.renderImage);
 }
 
 function handleClick(event) {
