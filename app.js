@@ -90,11 +90,11 @@ function randomProduct() {
   return Product.all[index];
 }
 
-function generateOptions() { 
-  
+function generateOptions() {
+
   // Populated with instances from previous round so not repeated this round.
-  const cannotUse = [  
-    Product.option1, 
+  const cannotUse = [
+    Product.option1,
     Product.option2,
     Product.option3
   ];
@@ -109,11 +109,17 @@ function generateOptions() {
 }
 
 function instantiateProducts(namesArray, pathsArray) { // create PRODUCT instances (which get pushed to array )
-  if (namesArray.length === pathsArray.length) {
+  if (localStorage.productData) {
+    Product.all = JSON.parse(localStorage.productData);
+  } else if (namesArray.length === pathsArray.length) {
     for (let i = 0; i < pathsArray.length; i++) {
       new Product(namesArray[i], pathsArray[i]);
     }
   } else console.error("name and path arrays are different lengths")
+}
+
+function storeProductData() {
+  localStorage.productData = JSON.stringify(Product.all);
 }
 
 function handleClick(event) {
@@ -141,6 +147,8 @@ function handleClick(event) {
     } else {
       removeEventListeners(); // remove click handler
       renderResultsButton();
+      storeProductData();
+
     }
   } else console.log("That isn't an option")
 }
@@ -200,7 +208,7 @@ function renderChart() {
           'rgba(168, 81, 88, 1)',
           'rgba(11, 23, 67, 1)',
           'rgba(192, 48, 210, 1)'
-          
+
 
 
         ],
