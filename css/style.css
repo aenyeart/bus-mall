@@ -44,7 +44,7 @@ img {
   display: grid;
   width: 90%;
   grid-template-columns: 1fr;
-  grid-template-rows: 70px 600px 70px;
+  grid-template-rows: 70px auto 70px;
   grid-template-areas: "header"
     "main "
     "footer";
@@ -54,7 +54,7 @@ img {
 #main-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 300px 50px 250px;
+  grid-template-rows: 300px 50px auto;
   grid-template-areas: "results option-1 option-2 option-3"
     "results . . ."
     "results text text text";
