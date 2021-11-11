@@ -1,0 +1,94 @@
+/* Generic starter basestyles */
+html {}
+
+* {
+  box-sizing: border-box;
+}
+.redflag {
+  background-color: rgb(133, 42, 42);
+  border: dashed red 20px;
+}
+body {
+  margin: 0;
+  font-family: ;
+}
+
+h1,
+h2,
+h3,
+h4 {}
+
+p {
+  margin-top: 0;
+}
+
+ul {}
+
+a {}
+
+a:visited {}
+
+a:hover,
+a:focus {
+  text-decoration: underline;
+}
+
+a:active {}
+
+img {
+  max-width: 100%;
+  height: 200px;
+}
+
+#page-grid {
+  display: grid;
+  width: 90%;
+  grid-template-columns: 1fr;
+  grid-template-rows: 70px 600px 70px;
+  grid-template-areas: "header"
+    "main "
+    "footer";
+  margin: 0 auto;
+}
+
+#main-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 300px 50px 250px;
+  grid-template-areas: "results option-1 option-2 option-3"
+    "results . . ."
+    "results text text text";
+}
+
+header {
+  grid-area: header;
+}
+
+main {
+
+}
+
+#results {
+  grid-area: results;
+  background-color: aqua;
+}
+
+#option-1 {
+  grid-area: option-1;
+}
+#option-2 {
+  grid-area: option-2;
+}
+#option-3 {
+  grid-area: option-3;
+}
+
+#text {
+  grid-area: text;
+}
+
+footer {
+  grid-area: footer;
+  height: 50px;
+  background-color: red;
+}
