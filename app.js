@@ -1,7 +1,7 @@
 'use strict'
 
 const optionTotal = 3; // let optionTotal = parseInt(prompt("how many options?"));
-const maxRounds = 10;
+const maxRounds = 25;
 let roundCounter = 0;
 let imgNamesArray = [
   "boots",
@@ -52,15 +52,18 @@ function Product(name, imgPath) {
 
 Product.all = []; // Creates an array at broad scope so that product instances can be pushed to it or accessed from any function in this codebase.
 
-// These placeholders below set us up to handle rendering and display/click counters: 
-// 1) From renderOptions(), we call the instance method `.renderImage()`, passing the id of the DOM element that the product image is to be rendered to. 
-// 2) SINCE `.renderImage` is a method of the instances themselves, and 
-// rendering has already happened before the user clicks, and 
-// the click event object provides the id of the DOM element that is clicked (via `event.target.id`),
-// THEN, 
-// 3) we can access the clicked instance's click counter by 
-// referring back to its prototype method `renderImage`,
-// and using the clicked id with some IF-THEN logic and comparison operators to decide whether to increment the .clickCounter of Product.option1, Product.option2, or Product.option3.
+/*** Explanation of following code structure ***
+ * 
+ * These placeholders below set us up to handle rendering and display/click counters: 
+ * 1) From renderOptions(), we call the instance method `.renderImage()`, passing the id of the DOM element that the product image is to be rendered to. 
+ * 2) SINCE `.renderImage` is a method of the instances themselves, and 
+ * rendering has already happened before the user clicks, and 
+ * the click event object provides the id of the DOM element that is clicked (via `event.target.id`),
+ * THEN, 
+ * 3) we can access the clicked instance's click counter by 
+ * referring back to its prototype method `renderImage`,
+ * and using the clicked id with some IF-THEN logic and comparison operators to decide whether to increment the .clickCounter of Product.option1, Product.option2, or Product.option3.
+ **************/
 
 Product.option1 = null;
 Product.option2 = null;
@@ -87,24 +90,25 @@ function randomProduct() {
   return Product.all[index];
 }
 
-function generateOptions() { // Hey, it works!
-  const cannotUse = [ // gets reset each time generateOptions is called
-    Product.option1,
+function generateOptions() { 
+  
+  // Populated with instances from previous round so not repeated this round.
+  const cannotUse = [  
+    Product.option1, 
     Product.option2,
     Product.option3
   ];
 
-  for (let i = 0; i < optionTotal; i++) { // optionTotal = 3
-    let newOption = "option" + (i + 1); // builds key string 
+  for (let i = 0; i < optionTotal; i++) { // optionTotal defaults to 3
+    let newOption = "option" + (i + 1); // concats key string 
     do {
       Product[newOption] = randomProduct();
     } while (cannotUse.includes(Product[newOption]));
-    // cannotUse[i] = Product[newOption];
-    cannotUse.push(Product[newOption]); // adds new option to cannotUse[] so it won't be duplicated on this pass
+    cannotUse.push(Product[newOption]); // adds newOption to cannotUse[] so it won't be duplicated on this pass
   }
 }
 
-function instantiateProducts(namesArray, pathsArray) { // BUILDS PRODUCT instances (which get pushed to array )
+function instantiateProducts(namesArray, pathsArray) { // create PRODUCT instances (which get pushed to array )
   if (namesArray.length === pathsArray.length) {
     for (let i = 0; i < pathsArray.length; i++) {
       new Product(namesArray[i], pathsArray[i]);
@@ -117,18 +121,15 @@ function handleClick(event) {
   if (event.target.classList.value === "option") { // "class" is offlimits in JS as a property name. Must use .classList to view token list
     let usrChoiceId = event.target.id; //
 
-    switch (usrChoiceId) {
+    switch (usrChoiceId) { // Increments click counter of selected product
       case 'option-1':
         Product.option1.clickCounter++;
-        // console.log(Product.option1.name, " clicks: ", Product.option1.clickCounter);
         break;
       case 'option-2':
         Product.option2.clickCounter++;
-        // console.log(Product.option2.name, " clicks: ", Product.option2.clickCounter);
         break;
       case 'option-3':
         Product.option3.clickCounter++;
-        // console.log(Product.option3.name, " clicks: ", Product.option3.clickCounter);
         break;
     }
 
@@ -157,7 +158,7 @@ function removeEventListeners() {
 function renderChart() {
   const ctx = document.getElementById('results-chart').getContext('2d');
   const resultsChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'horizontalBar',
     data: {
       labels: imgNamesArray,
       datasets: [{
@@ -166,19 +167,42 @@ function renderChart() {
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
-          // 'rgba(255, 206, 86, 0.2)',
-          // 'rgba(75, 192, 192, 0.2)',
-          // 'rgba(153, 102, 255, 0.2)',
-          // 'rgba(255, 159, 64, 0.2)'
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(96, 85, 112, 0.2)',
+          'rgba(139, 52, 196, 0.2)',
+          'rgba(7, 224, 110, 0.2)',
+          'rgba(149, 20, 254, 0.2)',
+          'rgba(16, 83, 90, 0.2)',
+          'rgba(186, 166, 104, 0.2)',
+          'rgba(158, 163, 5, 0.2)',
+          'rgba(168, 81, 88, 0.2)',
+          'rgba(11, 23, 67, 0.2)',
+          'rgba(192, 48, 210, 0.2)'
+
         ],
         borderColor: [
-          'rgba(255, 99, 132, 1)'
-          // ,
-          // 'rgba(54, 162, 235, 1)',
-          // 'rgba(255, 206, 86, 1)',
-          // 'rgba(75, 192, 192, 1)',
-          // 'rgba(153, 102, 255, 1)',
-          // 'rgba(255, 159, 64, 1)'
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(96, 85, 112, 1)',
+          'rgba(139, 52, 196, 1)',
+          'rgba(7, 224, 110, 1)',
+          'rgba(149, 20, 254, 1)',
+          'rgba(16, 83, 90, 1)',
+          'rgba(186, 166, 104, 1)',
+          'rgba(158, 163, 5, 1)',
+          'rgba(168, 81, 88, 1)',
+          'rgba(11, 23, 67, 1)',
+          'rgba(192, 48, 210, 1)'
+          
+
+
         ],
         borderWidth: 1
       }]
@@ -224,7 +248,3 @@ attachEventListeners();
 instantiateProducts(imgNamesArray, imgPathsArray);
 generateOptions();
 renderOptions();
-
-
-// associate id with product instance inside render function
-// use id from click event to refer to product instance clickCounter
